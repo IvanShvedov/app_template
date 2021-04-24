@@ -1,0 +1,36 @@
+from typing import Any
+import yaml
+import os
+
+
+class Config:
+
+    __slots__ = [
+        'DEBUG',
+        'PORT',
+        'HOST',
+        'DBHOST',
+        'DBPORT'
+        'DBUSER',
+        'DBPASSWORD'
+    ]
+
+    def __init__(self, yaml_file: str):
+        self._path = yaml_file
+        self._read()
+
+    def to_dict(self):
+        return {field.lower(): getattr(self, field) for field in self.__slots__}
+
+    def _read(self):
+        if not os.path.exists(self._path):
+            raise AttributeError(f"Config yaml doesnot exist: {self._path}")
+
+        with open(self._path) as config_file:
+            config_content = config_file.read()
+            config_yaml = yaml.safe_load(config_content)
+
+        for k, v in config_yaml.items():
+            k = k.upper()
+            if k in self.__slots__:
+                setattr(self, k, v)
