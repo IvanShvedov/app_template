@@ -2,7 +2,8 @@ env
 .vscode
 .env
 *.log
-!.gitignore
+db.sqlite3
+.yml
 
 # Byte-compiled / optimized / DLL files
 **/__pycache__
@@ -11,4 +12,4 @@ env
 *$py.class
 *.py[cod]
 
-db.sqlite3
+!.gitignore
