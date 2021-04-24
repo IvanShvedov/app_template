@@ -21,3 +21,4 @@ formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(messag
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
+# Init app
