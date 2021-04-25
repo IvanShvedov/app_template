@@ -5,6 +5,8 @@ import os
 
 class Config:
 
+    _instance = None
+
     __slots__ = [
         'DEBUG',
         'PORT',
@@ -19,6 +21,12 @@ class Config:
         self._path = yaml_file
         self._read()
 
+    def __call__(cls, *args, **kwargs):
+        if cls is not cls._instance:
+            instance = super().__call__(*args, **kwargs)
+            cls._instance = instance
+        return cls._instance
+        
     def to_dict(self):
         return {field.lower(): getattr(self, field) for field in self.__slots__}
 
